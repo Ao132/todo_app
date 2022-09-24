@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/constants.dart';
-import 'package:todo_app/counter/counter.dart';
-import 'package:todo_app/home_layout_screen.dart';
+import 'package:todo_app/data/constants.dart';
+import 'package:todo_app/presentation/view/home/home_screen.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
@@ -12,12 +9,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blue
       ),
       home: HomeLayout(),
     );
@@ -25,6 +22,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }

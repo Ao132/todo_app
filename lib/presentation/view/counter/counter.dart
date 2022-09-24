@@ -1,9 +1,11 @@
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/counter/cubit/cubit.dart';
-import 'package:todo_app/counter/cubit/states.dart';
 
 class CounterScreen extends StatelessWidget {
+  const CounterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -20,22 +22,20 @@ class CounterScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                        onPressed: () {
-                          CounterCubit.get(context).minus();
-                        },
-                        child: Text('MINUS')),
+                      onPressed: () => CounterCubit.get(context).minus(),
+                      child: const Text('MINUS'),
+                    ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         '${CounterCubit.get(context).counter}',
-                        style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                       ),
                     ),
                     TextButton(
-                        onPressed: () {
-                          CounterCubit.get(context).plus();
-                        },
-                        child: Text('PLUS'))
+                      onPressed: () => CounterCubit.get(context).plus(),
+                      child: const Text('PLUS'),
+                    )
                   ],
                 ),
               ),

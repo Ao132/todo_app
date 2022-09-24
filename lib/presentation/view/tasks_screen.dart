@@ -1,11 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:todo_app/constants.dart';
-import 'package:todo_app/home/cubit/cubit.dart';
 
-import 'package:todo_app/res_componants.dart';
 
 class TasksScreen extends StatelessWidget {
+  const TasksScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container();
