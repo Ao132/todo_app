@@ -45,12 +45,14 @@ Widget buildTaskItem(Map model) => Padding(
           ),
           const SizedBox(width: 20),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 '${model['title']}',
                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 5),
               Text(
                 '${model['date']}',
                 style: const TextStyle(color: Colors.grey),

@@ -1,25 +1,28 @@
-import 'cubit/app_cubit.dart';
-import 'cubit/app_states.dart';
-import 'package:intl/intl.dart';
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/presentation/shared%20widgets/res_componants.dart';
+import 'package:todo_app/presentation/view/home/cubit/app_cubit.dart';
+import 'package:todo_app/presentation/view/home/cubit/app_states.dart';
 
 class HomeLayout extends StatelessWidget {
-  HomeLayout({super.key});
+  bool b = false;
 
-  final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  final timeController = TextEditingController();
-  final dateController = TextEditingController();
-  final titleController = TextEditingController();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  var formKey = GlobalKey<FormState>();
+
+  var titleController = TextEditingController();
+  var timeController = TextEditingController();
+  var dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit()..createDatabase(),
-      child: BlocConsumer<AppCubit, AppStates>(
-        builder: (context, state) {
+        create: (context) => AppCubit()..createDatabase(),
+        child: BlocConsumer<AppCubit, AppStates>(builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             key: scaffoldKey,
@@ -28,20 +31,21 @@ class HomeLayout extends StatelessWidget {
                 cubit.titles[cubit.currentIndex],
               ),
             ),
-            body: cubit.screens[cubit.currentIndex],
+            body: b ? const Center(child: CircularProgressIndicator()) : cubit.screens[cubit.currentIndex],
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 if (cubit.isBottomSheetShown) {
                   if (formKey.currentState!.validate()) {
-                    cubit.insertToDatabase(context, title: titleController.text, time: timeController.text, date: dateController.text);
+                    cubit.insertToDatabase(title: titleController.text, time: timeController.text, date: dateController.text,context);
                   }
                 } else {
                   scaffoldKey.currentState!
                       .showBottomSheet(
                         (context) => Container(
-                          
                           color: Colors.white,
-                          padding: const EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(
+                            20.0,
+                          ),
                           child: Form(
                             key: formKey,
                             child: Column(
@@ -61,7 +65,9 @@ class HomeLayout extends StatelessWidget {
                                   label: 'Task Title',
                                   prefix: Icons.title,
                                 ),
-                                const SizedBox(height: 15.0),
+                                const SizedBox(
+                                  height: 15.0,
+                                ),
                                 defualtFormFeild(
                                   controller: timeController,
                                   keyboardType: TextInputType.datetime,
@@ -84,7 +90,9 @@ class HomeLayout extends StatelessWidget {
                                   label: 'Task Time',
                                   prefix: Icons.watch_later_outlined,
                                 ),
-                                const SizedBox(height: 15.0),
+                                const SizedBox(
+                                  height: 15.0,
+                                ),
                                 defualtFormFeild(
                                   controller: dateController,
                                   keyboardType: TextInputType.datetime,
@@ -93,7 +101,7 @@ class HomeLayout extends StatelessWidget {
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime.now(),
-                                      lastDate: DateTime.parse('2025-10-10'),
+                                      lastDate: DateTime.parse('2022-10-10'),
                                     ).then((value) {
                                       dateController.text = DateFormat.yMMMd().format(value!);
                                     });
@@ -121,7 +129,9 @@ class HomeLayout extends StatelessWidget {
                   cubit.chngeBottomSheetState(isShow: true, icon: Icons.add);
                 }
               },
-              child: Icon(cubit.fabIcon),
+              child: Icon(
+                cubit.fabIcon,
+              ),
             ),
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
@@ -130,15 +140,31 @@ class HomeLayout extends StatelessWidget {
                 cubit.changeIndex(index);
               },
               items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Tasks'),
-                BottomNavigationBarItem(icon: Icon(Icons.check_circle_outline), label: 'Done'),
-                BottomNavigationBarItem(icon: Icon(Icons.archive_outlined), label: 'Archived'),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.menu,
+                  ),
+                  label: 'Tasks',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.check_circle_outline,
+                  ),
+                  label: 'Done',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.archive_outlined,
+                  ),
+                  label: 'Archived',
+                ),
               ],
             ),
           );
-        },
-        listener: (context, state) {},
-      ),
-    );
+        }, listener: (context, state) {
+        }));
   }
+
+  // Instance of 'Future<String>'
+
 }

@@ -42,13 +42,15 @@ class AppCubit extends Cubit<AppStates> {
     database = await openDatabase(
       path,
       version: 1,
-      onCreate: (database, version) {
+      onCreate: (database, version) async {
         log('database created');
-        database.execute('CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)').then((value) {
-          log('table created');
-        }).catchError((error) {
-          log('Error When Creating Table ${error.toString()}');
+        await database
+            .execute('CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)')
+            .onError((error, stackTrace) {
+          log('Error while creating tabl: $error');
+          log(stackTrace.toString());
         });
+        log('table created');
       },
       onOpen: (database) async {
         tasks = await getDataFromDatabase(database);
