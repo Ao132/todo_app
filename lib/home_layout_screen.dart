@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/presentation/shared%20widgets/res_componants.dart';
@@ -17,6 +16,8 @@ class HomeLayout extends StatelessWidget {
   var titleController = TextEditingController();
   var timeController = TextEditingController();
   var dateController = TextEditingController();
+
+  HomeLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

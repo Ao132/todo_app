@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/data/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/presentation/view/home/home_screen.dart';
 
 void main() {
@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.blue
       ),
       home: HomeLayout(),
