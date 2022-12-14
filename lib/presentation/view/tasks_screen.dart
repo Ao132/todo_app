@@ -18,7 +18,7 @@ class TasksScreen extends StatelessWidget {
         log("asd ${state.toString()}");
         return ListView.separated(
           itemCount: tasks.length,
-          itemBuilder: ((context, index) => buildTaskItem(tasks[index])),
+          itemBuilder: ((context, index) => buildTaskItem(tasks[index],context)),
           separatorBuilder: ((context, index) => Container(width: double.infinity, height: 1, color: Colors.grey.shade300)),
         );
       },

@@ -87,13 +87,23 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  Future<List<Map>> getDataFromDatabase(database) async {
-    return await database.rawQuery('SELECT * FROM tasks');
+  Future<List<Map>> getDataFromDatabase(database) async{
+  return await  database.rawQuery('SELECT * FROM tasks');
+    emit(AppGetDatabaseState());
   }
 
   void chngeBottomSheetState({required bool isShow, required IconData icon}) {
     isBottomSheetShown = isShow;
     fabIcon = icon;
     emit(AppChangeBottomSheetState());
+  }
+
+  void updateData({
+    required String status,
+    required int id,
+  }) async {
+    return await database.rawUpdate('UPDATE tasks SET status = ? WHERE id = ?', [status, id]).then((value) {
+      return emit(AppUpdateDatabaseState());
+    });
   }
 }

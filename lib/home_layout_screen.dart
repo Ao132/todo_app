@@ -32,7 +32,7 @@ class HomeLayout extends StatelessWidget {
                 cubit.titles[cubit.currentIndex],
               ),
             ),
-            body: b ? const Center(child: CircularProgressIndicator()) : cubit.screens[cubit.currentIndex],
+            body:cubit.screens[cubit.currentIndex],
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 if (cubit.isBottomSheetShown) {

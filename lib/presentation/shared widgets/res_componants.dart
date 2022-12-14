@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:todo_app/presentation/view/home/cubit/app_cubit.dart';
 
 Widget defualtFormFeild({
   required TextEditingController controller,
@@ -35,7 +36,7 @@ Widget defualtFormFeild({
       ),
     );
 
-Widget buildTaskItem(Map model) => Padding(
+Widget buildTaskItem(Map model,BuildContext context) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
@@ -44,21 +45,26 @@ Widget buildTaskItem(Map model) => Padding(
             child: Text('${model['time']}'),
           ),
           const SizedBox(width: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '${model['title']}',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                '${model['date']}',
-                style: const TextStyle(color: Colors.grey),
-              )
-            ],
-          )
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '${model['title']}',
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  '${model['date']}',
+                  style: const TextStyle(color: Colors.grey),
+                )
+              ],
+            ),
+          ),
+          const SizedBox(width: 20),
+          IconButton(onPressed: () {AppCubit.get(context).updateData(status: 'done', id: model['id']);}, icon: const Icon(Icons.check_box)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.archive))
         ],
       ),
     );
